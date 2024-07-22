@@ -146,7 +146,7 @@ class MVTPmtilesProvider(MVTTippecanoeProvider):
                 content.minzoom = metadata_json_content["minzoom"]
             if "maxzoom" in metadata_json_content:
                 content.maxzoom = metadata_json_content["maxzoom"]
-            content.tiles = service_url
+            content.tiles = [service_url]
             content.vector_layers = metadata_json_content["vector_layers"]
             metadata['metadata'] = content.dict()
             # Some providers may not implement tilejson metadata
@@ -168,7 +168,7 @@ class MVTPmtilesProvider(MVTTippecanoeProvider):
 
             service_url = url_join(
                 server_url,
-                f'collections/{dataset}/tiles/{tileset}/{{tileMatrix}}/{{tileRow}}/{{tileCol}}?f=mvt')  # noqa
+                f'collections/{dataset}/tiles/{tileset}/{{z}}/{{x}}/{{y}}?f=mvt')  # noqa
 
             content = MVTTilesJson()
             if "name" in metadata_json_content:
@@ -185,7 +185,7 @@ class MVTPmtilesProvider(MVTTippecanoeProvider):
                 content.minzoom = metadata_json_content["minzoom"]
             if "maxzoom" in metadata_json_content:
                 content.maxzoom = metadata_json_content["maxzoom"]
-            content.tiles = service_url
+            content.tiles = [service_url]
             content.vector_layers = metadata_json_content["vector_layers"]
             return content.dict()
         except ProviderConnectionError:
